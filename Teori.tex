@@ -1,0 +1,44 @@
+\section{Teori}
+
+Her skal dere få frem kunnskap det er nødvendig at leser innehar for å kunne forstå det dere gjør i hoveddelen.
+Her vil dere introdusere formler brukt i hoveddelen og vise til hvordan grunnsteinene i deres design fungerer. 
+
+\subsection{Lister i LaTeX}
+
+Ekspempler på dette kan være:
+
+\begin{itemize}
+    \item[-] Hvordan en RCC-krets fungerer
+    \item[*] Sannhetstabeller og funksjonsforklaring av logiske porter.
+    \item[$\rightarrow$] Addererkretser
+    \item Toerkomplementoperasjoner
+\end{itemize}
+
+Det er viktig at dere ikke går inn på kretsspesifikke eller oppgavespesifikke detaljer i teorien. Den skal holdes helt generell.
+
+% For å endre nummereringslabels bruk pakken "enumitem"
+% Uten enumitem
+\begin{enumerate}
+    \item Nummert
+    \item Liste
+    \begin{enumerate}
+        \item Med Nøstede
+        \item Elementer
+    \end{enumerate}
+\end{enumerate}
+
+% Med enumitem
+\begin{enumerate}[label=(\roman*)]
+    \item Nummert
+    \item Liste
+    \begin{enumerate}[label=(\alph*)]
+        \item Med Nøstede
+        \item Elementer
+        \begin{enumerate}[label=(\arabic*)]
+            \item Og
+            \item egne
+            \item labels
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+

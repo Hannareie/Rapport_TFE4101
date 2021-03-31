@@ -1,0 +1,52 @@
+\section{Resultater}
+
+Resultatdelen er stort sett den som inneholder flest figurer og bilder. 
+Denne delen av rapporten skal vise resultatene av målingene og testingen dere har gjort,
+på en så oversiktlig måte som mulig. oscilloskopbilder er typisk noe man presenterer i denne delen.
+
+I tillegg er det ofte lurt å samle lignende resultater i en tabell. Det gjør både at det er lettere
+å refere til, og at det er mer oversiktlig for leser.
+
+\subsection{Matte i LateX}
+
+Det er en stor del som står igjen, og det er formler og formelreferering i LaTeX. I LaTeX har man forskjellige scopes,
+som dere har sett i bruk flere steder. Spesielt for matte-scopet er at det er helt egne symboler, tegn og fonter definert.
+For å aksessere dette benyttes enten begin equation eller \$ <matte> \$. Feks. $x+y=z$. Den samme ligningen er gjengitt i ligning~\eqref{eq:res_enkel_ligning}.
+Vær obs på forskjellen mellom å referere til figur, tabell og ligning. Henholdsvis figur~\ref{fig:inl_6cm_pika}, tabell~\ref{tab:inl_multi_tabell} og ligning~\eqref{eq:res_aligned}.
+
+\begin{equation}
+    x + y = z
+    \label{eq:res_enkel_ligning}
+\end{equation}
+
+
+\begin{equation}
+    % Aligned benyttes for flere linjer med ett nummer
+    \begin{aligned}
+        f(x) &= 3x^2 + 4x - 3 \\
+            &= 3 \cdot 4^2 + 4 \cdot 4 - 3 \\
+            &= 61
+    \end{aligned}
+    \label{eq:res_aligned}
+\end{equation}
+
+% Align kan brukes for å nummerere hver rad. Dette er også matte-scope.
+% For referering er det veldig vessentlig hvor \label{} plasseres
+\begin{align}
+    \label{eq:res_rad1}
+    x &= 3 \\
+    \label{eq:res_rad2}
+    y &= 4 \\
+    \label{eq:res_rad3}
+    z &= x + y = 3 + 4 = 7
+\end{align}
+
+Aligned innenfor equation scope, slik som vist i ligning~\eqref{eq:res_aligned}, skiller seg fra align scope, vist i ligning~\eqref{eq:res_rad1},~\eqref{eq:res_rad2}~og~\eqref{eq:res_rad3}. 
+I ligning~\eqref{eq:res_grense_integrasjon} er pakken amsmath tatt i bruk for å få spesielle symboler.
+
+\begin{equation}
+    \lim_{x \to \infty} \int_{0}^{3} 3xy \,dy 
+    = \lim_{x \to \infty} \left( \frac{3}{2}x \cdot 3 - \frac{3}{2}x \cdot 0 \right)
+    = \lim_{x \to \infty} \frac{9}{2}x \rightarrow \infty
+    \label{eq:res_grense_integrasjon}
+\end{equation}

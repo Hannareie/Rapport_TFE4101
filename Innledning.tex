@@ -1,0 +1,116 @@
+\section{Innledning}
+
+Skriv generelt om hva laboppgaven handler om, at det er en del av labopplegget i TFE4101 på NTNU. 
+Dere kan også skrive om rapportens struktur, hvis det er noe spesielt dere ønsker å få fram.
+
+\subsection{Figurer}
+
+Det finnes flust av måter å lage figurer på i latex. For å legge inn bilder er pakken graphicx brukt mest. En figur dannes innenfor et figure scope. 
+Vi ser i figur~\ref{fig:inl_6cm_pika} en 6cm høy pikachu opp ned. Denne skiller seg ut fra Pikachu i figur~\ref{fig:inl_scaled_pika}~og~\ref{fig:inl_relative_pika}, som er en del av figur~\ref{fig:inl_subfigs_main}.
+
+% OBS til avsnittet over
+% ~ Brukes til å forsikre seg om at det havner på samme linje.
+
+
+% \begin{figure}[<placement specifier>]
+% Plassering i LaTeX kan være knotete, og er antagelig noe av det dere kommer til å bruke mest tid på.
+% De vanligste er:
+%   - h (plasser her i teksten)
+%   - t (plasser på toppen av neste side
+%   - b (plasser på bunn av denne siden)
+%   - ! (Få kompilatoren til å bry seg mer om disse plasseringsegenskapene enn feks marger)
+% ! fungerer ikke alene, og kommandoene er i prioritert rekkefølge fra venstre til høyre.
+\begin{figure}[!htb]
+    %\centering gjør at alt som følger innenfor dette scopet sentreres
+    \centering
+    
+    % Sett inn grafikkfil \includegraphics[<formatering>]{<path/to/file.extension>}
+    \includegraphics[height=6cm, angle=180]{figurer/pika.jpg}
+    \caption{6cm høy Pikachu}
+    \label{fig:inl_6cm_pika}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    % Subfigure er definert i pakken subcaption.
+    % bruk: \begin{subfigure}{<størrelse figurområde>}
+    % \textwidth er en innebygd størrelse basert på margene på siden.
+    % 0.45\textwidth betyr: Denne underfiguren tildeles 45% tilgjengelig sidebredde for tekst.
+    % Dette er alltid relativt til avsatt plass. Legg spesielt merke til width=0.9\linewidth
+    % i subfigur nr 2.
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.15]{figurer/pika.jpg}
+        % \caption er figurtekst. Må komme før \label
+        \caption{Skalert Pikachu}
+        % \label er figurreferanse til bruk for referering. Må etter \caption
+        \label{fig:inl_scaled_pika}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+    \centering
+        \includegraphics[width=0.9\linewidth]{figurer/pika.jpg}
+        \caption{Størrelse er relativt til linjebredde}
+        \label{fig:inl_relative_pika}
+    \end{subfigure}
+
+    % Ytterste figurtekst of referansenivå.
+    \caption{Hovedfigur}
+    \label{fig:inl_subfigs_main}
+\end{figure}
+
+\clearpage
+
+\subsection{Tabeller}
+
+For å sette inn en tabell brukes table environment Her kan jeg anbefale å bruke tabular for å lage selve tabellen. 
+Tabell~\ref{tab:inl_full_tabell} viser tekstjustering, tabell~\ref{tab:inl_sparse_tabell} viser et annet linjeoppsett,
+og tabell~\ref{tab:inl_multi_tabell} viser multikolonner og rader.
+
+% \begin{table}[<placement>]
+\begin{table}[!htb]
+    \centering
+    \caption{Vanlig tabell}
+    \label{tab:inl_full_tabell}
+    
+    % Tabular lager selve tabellen. Defineres ved \begin{tabular}{<radformattering>}
+    % | betyr vertikal linje, c, l, r er tekstjustering.
+    % I tabeller skilles hvert radelement med &. 
+    % Ny linje legges inn med \\
+    \begin{tabular}{|c|l|r|}
+        %horisontal linje \hline. 
+        \hline
+        \textbf{Sentrert}   & \textbf{venstrejustert}   & \textbf{høyrejustert} \\ \hline \hline
+         hei                & på                        & deg                   \\ \hline 
+    \end{tabular}
+\end{table}
+
+\begin{table}[!htb]
+    \centering
+    \caption{Tabell med mindre inndeling}
+    \label{tab:inl_sparse_tabell}
+    \begin{tabular}{c|c}
+        \textbf{Vare}   & \textbf{Verdi} \\ \hline
+        Vann            & 3kr \\
+        Mer vann        & 4kr \\
+        Masse vann      & 12kr \\ \hline
+        Sum             & 19kr \\
+    \end{tabular}
+\end{table}
+
+% Tabeller med mye formattering kan ofte bli uoversiktlige desverre. 
+% Bruk tabs for å lage oversikt.
+% For multirad bruk \multirow{<antall>}{<bredde>}{<tekst>}
+% For multikolonne bruk \multicolumn{<antall>}{<formattering>}{<tekst>}
+\begin{table}[!htb]
+    \centering
+    \caption{multirad og multikolonne}
+    \label{tab:inl_multi_tabell}
+    \begin{tabular}{|c|c|c|} 
+        \hline
+        \multicolumn{3}{|c|}{\textbf{Felles overskrift}} \\ \hline
+        \multirow{4}{3cm}{\centering Valg}  & Ja &  \\ \cline{2-3}
+                                            & Nei & \\ \cline{2-3}
+                                            & Kanskje & X \\ \cline{2-3}
+                                            & Vet ikke & \\ \hline
+    \end{tabular}
+\end{table}

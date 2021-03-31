@@ -1,0 +1,69 @@
+
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[lmargin=25mm,rmargin=25mm,tmargin=27mm,bmargin=30mm]{geometry}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+\input{setup.tex}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1.5cm}
+        {\Huge\textbf{Labrapport Lab 3: RC-Krets og CMOS logikk}}\\
+        \vspace{1cm}
+        {\Large av Hanna Reiestad og Maia Berntsen}\\
+        \vspace{1cm}
+        \today\\ 
+        \vspace{1cm}
+        Labgruppe 28, pulje 5\\
+        
+        \vfill
+        {
+            \large TFE4101 Krets og Digitalteknikk\\ 
+            Norges Teknisk-Naturvitenskapelige Universitet
+        }
+        
+        
+        
+    \end{center}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+\clearpage
+
+\input{Sammendrag.tex}\clearpage
+
+\tableofcontents
+\addcontentsline{toc}{section}{Innhold}
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{Innledning.tex}\clearpage
+
+\input{Teori.tex}\clearpage
+
+\input{Arbeid.tex}\clearpage
+
+\input{Resultater.tex}\clearpage
+
+\input{Diskusjon.tex}\clearpage
+
+\input{Konklusjon.tex}\clearpage
+
+\printbibliography
+\addcontentsline{toc}{section}{Referanser}
+\clearpage
+
+\input{Vedlegg.tex}
+
+\end{document}

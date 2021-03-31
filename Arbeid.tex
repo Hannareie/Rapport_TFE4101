@@ -1,0 +1,126 @@
+\section{Vårt arbeid}
+
+Dere trenger ikke kalle denne "Vårt arbeid". Kall kapittelet noe som tilsvarer hva dere skriver om.
+
+I dette kapittelet skal dere gå spesifikt inn i hvordan oppgaven ble utført. 
+Dette innebærer hvilke krav som stilles til kretsen, kretsdesign, implementasjon og målinger.
+Jeg er desverre ikke oppdatert på hvilke tegneprogrammer som egner seg best til kretstegninger.
+Det jeg kan gjøre er å gi en kjapp innføring i Tikz.
+
+\subsection{Kildehenvisning}
+
+I dette dokumentet har jeg valgt å bruke Biblatex. Det er flere forskjellige pakker tilgjengelig for
+kildehenvisning, men det er denne jeg er mest kjent med. For å sitere en kilde er dere nødt til å gjøre 4 ting:
+\begin{enumerate}
+    \item definere referansestil og referansebibliotekfil (gjort i setup.tex).
+    \item lage selve kilden i en .bib-fil.
+    \item referere ved å benytte cite-kommandoen.
+    \item printe referanseliste med printbibliography-kommandoen (gjort i main.tex).
+\end{enumerate}
+
+I mylib.bib finner dere noen eksempler på kilder. Ellers kan jeg anbefale dokumentasjonen for biblatex \cite{biblatex}.
+Nå som vi har referert til en kilde legges denne til i lista. Der havner de i rekkefølgen de ble referert til.
+Legg spesielt merke til hvordan man kun kildene som faktisk referes til vises. 
+
+%Hvis dere fjerner kommentaren på denne kilden~\cite{airsim_ikke_i_bruk}, vil den også vises i lista.
+
+\newpage % bruk denne for å starte en ny side.
+\subsection{Egendefinerte figurer i Tikz og kildehenvisning}
+
+Tikz er et veldig kraftig tegneverktøy til Latex, og denne innføringen skraper bare såvidt på overfraten.
+I denne pakken er det så mange muligheter at jeg ikke kommer til å skrive noe detaljert rundt det.
+For en introduksjon til grunnpakken av tikz, kan dere se på Jaques Crémer sin introduksjon \cite{tikz_intro}.
+
+Figur~\ref{fig:arb_enkel_krets} viser en enkel kretstegning tegnet med circuitikz-pakken, mens figur~\ref{fig:arb_3D_fig} er vesentlig mye mer avansert, og benytter seg av tikz-3dplots-pakken.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{circuitikz}
+        % \draw (x,y) <type>[<options>] (<referansenavn>){<tekst>}
+        % Terminer hver kommando med semikolon;
+        \draw (0,2) node[xor port] (xor1){};
+        \draw (0,0) node[and port] (and1){};
+        \draw (2,1) node[nand port] (nand1){};
+        
+        % \node tegner node direkte
+        % \node (<navnereferanse>) [<options>]{tekst}
+        \node (utg) [right of = nand1, xshift=-0.8cm, yshift=0.3cm]{Q};
+        \node (utg) [left of = xor1, xshift=-0.8cm, yshift=0.3cm]{A};
+        \node (utg) [left of = xor1, xshift=-0.8cm, yshift=-0.3cm]{B};
+        \node (utg) [left of = and1, xshift=-0.8cm, yshift=0.3cm]{C};
+        \node (utg) [left of = and1, xshift=-0.8cm, yshift=-0.3cm]{D};
+        
+        \draw (xor1.out) -| (nand1.in 1);
+        \draw (and1.out) -| (nand1.in 2);
+    \end{circuitikz}
+    \caption{Enkel krets}
+    \label{fig:arb_enkel_krets}
+\end{figure}
+
+% --------------------------------------------------------------------------
+% Dette er kun for de som er interessert i mer avansert figurlaging med Tikz
+% --------------------------------------------------------------------------
+
+\begin{figure}[!htb]
+    \centering
+    \tdplotsetmaincoords{70}{100}
+    \begin{tikzpicture}[tdplot_main_coords, scale = 0.7]
+        \coordinate (O) at (0,0,0);
+        
+        \pgfmathsetmacro{\rvec}{4}
+        \pgfmathsetmacro{\thetavec}{120}
+        \pgfmathsetmacro{\phivec}{50}
+        
+        \tdplotsetcoord{P}{\rvec}{\phivec}{\thetavec}
+        
+        \draw[thick, ->] (-3,0,0) -- (5,0,0) node [below left]{$x$};
+        \draw[thick, ->] (0,-1,0) -- (0,5,0) node [below right]{$y$};
+        \draw[thick, ->] (0,0,-1) -- (0,0,5) node [below left]{$z$};
+        
+        \draw[->, thick, red] (O) -- (P);
+        \draw[] (P) node[above right]{$P$};
+        \node at (P){\textbullet};
+        \draw[dashed, thick, red] (O) -- (Pxy);
+        \draw[dashed, thick, blue] (Pxy) -- (0,2.654,0); %rsin(theta)sin(phi)
+        \draw[dashed, thick, blue] (Pxy) -- (-1.286,0,0); %rcos(theta)sin(phi)
+        \draw[dashed, thick, green] (P) -- (0,0,2.571); %rcos(phi)
+        
+        \tdplotdrawarc{(O)}{1}{0}{\thetavec}{anchor=north}{$\theta$}
+        \tdplotsetthetaplanecoords{\thetavec}
+        \tdplotdrawarc[tdplot_rotated_coords]{(O)}{1}{0}{\phivec}{anchor=south west}{$\phi$}
+        
+        \foreach \angle in {0,60,...,300} {
+            \tdplotsetthetaplanecoords{\angle}
+            \ifthenelse{\angle=\thetavec}{
+                \draw[tdplot_rotated_coords] (\rvec,0,0) arc (0:180:\rvec);
+            }{
+                \ifthenelse{\angle<90 \OR \angle>270}{
+                    \draw[tdplot_rotated_coords] (\rvec,0,0) arc (0:180:\rvec);
+                }{
+                    \draw[dash pattern=on 3pt off 10pt,tdplot_rotated_coords] (\rvec,0,0) arc (0:180:\rvec);
+                }
+            }
+        } % end \foreach
+        
+        \draw[] (0,-\rvec,0) arc (-90:120:\rvec);
+        \draw[dashed] (120:\rvec) arc (120:270:\rvec);
+        
+        \foreach \angle in {-60,-59.5,...,0} {
+            \tdplotsetthetaplanecoords{\angle}
+            \draw[tdplot_rotated_coords, color = gray!60, opacity = 0.7] (0:\rvec) arc (0:180:\rvec);
+        } % end foreach
+        
+        \shade[ball color = blue!40, opacity = 0.4] (0,0) circle (4cm); %cm does fix things :O
+        
+        \tdplotsetrotatedcoordsorigin{(P)}
+        \tdplotsetrotatedcoords{0}{-90}{90}
+        \draw[tdplot_rotated_coords,->] (-1,0,0) -- (3,0,0) node [below right]{$x'$};
+        \draw[tdplot_rotated_coords,->] (0,-1,0) -- (0,3,0) node [right]{$y'$};
+        \draw[tdplot_rotated_coords,->] (0,0,-1) -- (0,0,3) node [above right]{$z'$};
+    
+    \end{tikzpicture}
+    
+    
+    \caption{Avansert 3D-figur}
+    \label{fig:arb_3D_fig}
+\end{figure}
